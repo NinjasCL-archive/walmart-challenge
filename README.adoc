@@ -78,7 +78,7 @@ DB_AUTH_SOURCE=admin
 DB_DATABASE=promotions
 DB_DEBUG=true
 HASH_DRIVER=bcrypt
-____
+```
 
 ### $ make install
 
