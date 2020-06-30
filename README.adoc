@@ -5,7 +5,7 @@
 # Walmart Challenge
 
 This is a project made for _Walmart Chile_'s challenge. 
-Implemented by _Camilo Castro_[https://ninjas.cl] <camilo@ninjas.cl>.
+Implemented by https://ninjas.cl[_Camilo Castro_] <camilo@ninjas.cl>.
 
 _30 June 2020_.
 
@@ -61,8 +61,7 @@ The `.env` file inside `backend/` is ready to be used.
 
 Just in case. The following is the recommended configuration for *development* environments.
 
-[source,bash]
-____
+```bash
 HOST=0.0.0.0 # 0.0.0.0 is needed for accessing from outside the container
 PORT=3333
 NODE_ENV=development
