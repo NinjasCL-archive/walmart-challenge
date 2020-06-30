@@ -1,3 +1,5 @@
+# Based on Diego Sepúlveda's Implementation
+# https://github.com/DiegoSepuSoto
 FROM node:lts-alpine3.10 AS builder
 
 WORKDIR /app
