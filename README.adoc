@@ -1,0 +1,137 @@
+:ext-relative:
+:toc: macro
+:toclevels: 99
+
+# Walmart Challenge
+
+This is a project made for _Walmart Chile_'s challenge. 
+Implemented by _Camilo Castro_[https://ninjas.cl] <camilo@ninjas.cl>.
+
+_30 June 2020_.
+
+image:https://user-images.githubusercontent.com/292738/86102022-07100e00-ba89-11ea-8925-0efe8fcd6a52.png[]
+
+You can watch the link:example.mp4{ext-relative}[Example Video] that showcase the main
+functionality.
+
+toc::[]
+
+## About
+
+The project must have:
+
+- Product Search API (using provided products mongo collection).
+- _Palindrome_ Special Discount.
+- Website with Search and Product Display.
+
+Also:
+
+- Docker files.
+- Good docs.
+- Good code.
+- Good tests.
+
+## Technologies
+
+This project was made using the following technologies:
+
+- _Backend_: https://adonisjs.com/[Adonis.js].
+- _Frontend_: https://reactjs.org/[React.js].
+- _API Docs_: https://swagger.io/[Swagger].
+- _REST API Spec_: https://jsonapi.org/[JSON API].
+
+## Installation
+
+First you would need https://www.docker.com/[Docker] and https://en.wikipedia.org/wiki/Makefile[Make] already installed.
+
+- The _Make_ commands are defined in the link:Makefile{ext-relative}[Makefile].
+- The _Docker_ configuration is defined in link:docker-compose.yml{ext-relative}[docker-compose.yml].
+
+### Arquitecture
+
+- _Docker_ is the main environment where the servers runs.
+- There is a _MongoDB_ server that is the initial service.
+- The backend depends on the _MongoDB_. Uses the port _3333_.
+- The frontend is built and served using _NGINX_. Uses the port _8080_.
+
+
+### Configure .env file
+
+The `.env` file inside `backend/` is ready to be used.
+
+Just in case. The following is the recommended configuration for *development* environments.
+
+[source,bash]
+____
+HOST=0.0.0.0 # 0.0.0.0 is needed for accessing from outside the container
+PORT=3333
+NODE_ENV=development
+APP_NAME=Walmart Challenge
+APP_URL=http://${HOST}:${PORT}
+CACHE_VIEWS=false
+APP_KEY=cusYyCYCPpUf2HdOgqSlkyjqJcHeQ2eK
+DB_CONNECTION=mongodb
+DB_HOST=database # defined in docker-compose.yml in links section
+DB_PORT=27017
+DB_USER=productListUser
+DB_PASSWORD=productListPassword
+DB_AUTH_SOURCE=admin
+DB_DATABASE=promotions
+DB_DEBUG=true
+HASH_DRIVER=bcrypt
+____
+
+### $ make install
+
+The command `make install` will execute `docker-compose up -d --build` and provision the database. 
+Wait a few moments and you will be able to navigate http://127.0.0.1:3333[localhost].
+
+### $ make build
+
+The command `make build` will execute `docker-compose up -d --build`.
+
+### $ make test-backend
+
+The command `make test-backend` will execute the backend test suite.
+
+### $ make test-frontend
+
+The command `make test-frontend` will execute the frontend test suite.
+
+### $ make test
+
+The command `make test` will execute the backend and frontend test suite.
+
+## Usage
+
+This app can be used as a Website or as an API.
+
+### Website
+
+The website would be available at:
+
+- http://127.0.0.1:8080
+
+### REST API
+
+The following query will return the results for the palindrome `sadfdas`. The rate has been limited to `1000` requests per minute.
+
+- http://127.0.0.1:3333/api/products?query=sadfdas
+
+Pagination is possible using the `page` query param.
+
+- http://127.0.0.1:3333/api/products?query=sadfdas&page=2
+
+The documentation is available at
+
+- http://127.0.0.1:3333/docs
+
+### Database
+
+Can be accessed using the following connection string:
+
+- `mongodb://productListUser:productListPassword@localhost:27017/promotions?authSource=admin`
+
+++++
+Made with <i class="fa fa-heart">&#9829;</i> by <a href="https://ninjas.cl" target="_blank">Ninjas.cl</a>.
+++++

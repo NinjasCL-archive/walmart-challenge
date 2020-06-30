@@ -1,0 +1,60 @@
+version: '3'
+
+
+# This config is for development only. For production use
+# another more secure configuration.
+
+services:
+  mongo:
+    container_name: mongodb-local
+    image: mongo:3.6.8
+    volumes:
+      - ./mongodb/database:/database
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: productListUser
+      MONGO_INITDB_ROOT_PASSWORD: productListPassword
+    ports:
+      # machine port : docker port
+      - 27017:27017
+  backend:
+    container_name: walmart-backend-local
+    build: 
+      context: ./backend
+      dockerfile: ./Dockerfile
+    restart: always
+    links:
+      - mongo:database
+    depends_on:
+      - mongo
+    volumes:
+      - ./backend:/usr/src/app/
+    ports:
+      # machine port : docker port
+      - 3333:3333
+      - 4000:4000
+    restart: always
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: ./Dockerfile
+    volumes:
+      - ./frontend:/app
+    ports:
+      - 8080:80
+    container_name: walmart-frontend-local
+    depends_on:
+      - backend
+    restart: always
+  tester:
+    build: .
+    volumes:
+      - ./frontend:/app/frontend
+      - ./backend:/app/backend
+    container_name: walmart-tester-local
+    image: walmart-tester-local
+    depends_on:
+      - mongo
+    restart: always
+    links:
+      - mongo:database

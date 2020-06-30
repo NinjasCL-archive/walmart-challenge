@@ -1,0 +1,72 @@
+/products:
+  get:
+    tags:
+      - products
+    summary: Fetch the available products and their data.
+    consumes:
+      - "application/json"
+    produces:
+      - "application/json"
+    parameters:
+      - name: query
+        description: Search word to filter the products.
+        in: query
+        required: false
+        type: string
+      - name: page
+        description: The current page of results. Defaults to 1.
+        in: page
+        required: false
+        type: string
+      - name: limit
+        description: How many results return on each search. Defaults to 20.
+        in: limit
+        required: false
+        type: string
+    responses:
+      429:
+        description: Returns when there are too many requests within a minute.
+        examples:
+          application/json: {
+    "errors": [
+        {
+            "status": 429,
+            "title": "TooManyRequests",
+            "detail": "Too Many Attempts."
+        }
+    ]
+}
+      200:
+        description: Returns a product list with JSON API Format
+        examples:
+          application/json: {
+    "links": {
+        "self": "/api/products"
+    },
+    "meta": {
+        "total": 1,
+        "limit": 10,
+        "total_pages": 1,
+        "page": 1,
+        "paging_counter": 1,
+        "has_prev_page": false,
+        "has_next_page": false,
+        "prev_page": null,
+        "next_page": null
+    },
+    "data": {
+        "type": "products",
+        "attributes": {
+            "docs": [
+                {
+                    "id": 1,
+                    "brand": "ooy eqrceli",
+                    "description": "rlñlw brhrka",
+                    "image": "www.lider.cl/catalogo/images/whiteLineIcon.svg",
+                    "price": 498724,
+                    "_id": "5ef906a670ec909f8f3bda93"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,12 @@
+.lider-color {
+  background-color: #0071ce !important;
+  color: #ffffff;
+}
+
+.lider-color .navbar-burger {
+  color: #ffffff;
+}
+
+.hero.is-info {
+  background-color: #0071ce !important;
+}
