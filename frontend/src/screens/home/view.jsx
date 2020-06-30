@@ -18,4 +18,7 @@ const HomeView = ({ items, products, search, setSearch, loadMoreProducts }) => {
   );
 };
 
-export default HomeView;
+export default {
+  Main: HomeView,
+  Components: { SearchBar, NavBar, Products },
+};

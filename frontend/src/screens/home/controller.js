@@ -54,7 +54,7 @@ const HomeController = () => {
   }, [searchQuery, page, shouldFetch]);
 
   return (
-    <View
+    <View.Main
       products={products}
       items={cachedProducts.current}
       search={searchQuery}
