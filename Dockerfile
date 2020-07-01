@@ -8,12 +8,14 @@ COPY ./backend/package*.json ./
 
 RUN npm install
 
+RUN pwd && ls -a && ls node_modules/
+
 COPY ./backend ./
 
 COPY ./init.sh .
-RUN chmod +x ./init.sh
-RUN ./init.sh
-RUN pwd && ls -a && ls node_modules/
+RUN chmod +x /app/backend/init.sh
+RUN /app/backend/init.sh
+
 
 
 # Install Frontend
