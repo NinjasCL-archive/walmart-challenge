@@ -18,12 +18,12 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "test-no-watch": "react-scripts test --watchAll=false",
-    "eject": "react-scripts eject",
-    "coverage": "react-scripts test --env=jsdom --coverage --watchAll=false"
+    "start": "./node_modules/.bin/react-scripts start",
+    "build": "./node_modules/.bin/react-scripts build",
+    "test": "./node_modules/.bin/react-scripts test",
+    "test-no-watch": "./node_modules/.bin/react-scripts test --watchAll=false",
+    "eject": "./node_modules/.bin/react-scripts eject",
+    "coverage": "./node_modules/.bin/react-scripts test --env=jsdom --coverage --watchAll=false"
   },
   "jest": {
     "collectCoverageFrom": [
