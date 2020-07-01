@@ -1,5 +1,5 @@
 # Test runner image
-FROM node:12.18
+FROM node:lts-alpine3.10
 
 # Install Backend
 WORKDIR /app/backend
@@ -8,12 +8,12 @@ COPY ./backend/package*.json ./
 
 RUN npm install
 
-COPY ./backend .
+COPY ./backend ./
 
-COPY ./init.sh ./init.sh
+# COPY ./init.sh ./init.sh
 RUN chmod +x ./init.sh
 RUN ./init.sh
-RUN ls
+RUN pwd && ls -a && ls node_modules/
 
 
 # Install Frontend
@@ -23,9 +23,9 @@ COPY ./frontend/package*.json ./
 
 RUN npm install
 
-COPY ./frontend .
+COPY ./frontend ./
 
-RUN ls
+RUN pwd && ls -a
 
 # We need to sleep this beast in order
 # to execute testing commands
