@@ -27,12 +27,12 @@ b build:
 	./check-container-names.sh
 	docker-compose build --force-rm --no-cache && docker-compose up --detach
 
-bt test-install:
-	docker-compose -f ./docker-compose-testing.yml up -d --build --abort-on-container-exit
-	make database-provision
-
 i install:
 	make build
+	make database-provision
+
+bt test-install:
+	docker-compose -f ./docker-compose-testing.yml up --build --abort-on-container-exit
 	make database-provision
 
 tb test-backend:
