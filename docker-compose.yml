@@ -51,6 +51,7 @@ services:
     volumes:
       - ./frontend:/app/frontend
       - ./backend:/app/backend
+      - .:/app
     container_name: walmart-tester-local
     image: walmart-tester-local
     depends_on:

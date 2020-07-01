@@ -1,0 +1,26 @@
+# Ignore test and other files
+.gitattributes export-ignore
+.gitignore export-ignore
+
+* text=auto eol=lf
+*.txt text eol=lf
+*.js text eol=lf
+*.css text eol=lf
+*.adoc text eol=lf
+*.md text eol=lf
+*.json text eol=lf
+*.lock text eol=lf
+*.jsx text eol=lf
+*.yml text eol=lf
+*.sh text eol=lf
+*.html text eol=lf
+*.env* text eol=lf
+*.editorconfig text eol=lf
+*.dockerignore text eol=lf
+*Makefile text eol=lf
+*Dockerfile text eol=lf
+
+*.png binary
+*.jpg binary
+*.mp4 binary
+*.ico binary

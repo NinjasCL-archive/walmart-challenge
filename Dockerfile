@@ -16,9 +16,11 @@ COPY ./frontend/package*.json ./
 
 RUN npm install
 
-COPY /init.sh /init.sh
-RUN chmod +x /init.sh
-RUN /init.sh
+WORKDIR /app
+
+COPY ./init.sh ./init.sh
+RUN chmod +x ./init.sh
+RUN ./init.sh
 
 # We need to sleep this beast in order
 # to execute testing commands
