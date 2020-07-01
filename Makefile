@@ -25,15 +25,19 @@ b build:
 	# https://github.com/docker/compose/issues/1049#issuecomment-561988120
 	# Ensure that we are building an image from scratch.
 	./check-container-names.sh
-	docker-compose build --force-rm --no-cache && docker-compose up --detach
+	docker-compose build --force-rm --no-cache
+	docker-compose up --detach
 
 i install:
 	make build
 	make database-provision
+	docker ps | grep walmart
 
 bt test-install:
-	docker-compose -f ./docker-compose-testing.yml rm -f && docker-compose -f ./docker-compose-testing.yml build && docker-compose -f ./docker-compose-testing.yml up --abort-on-container-exit
+	docker-compose -f ./docker-compose-testing.yml build --force-rm --no-cache
+	docker-compose -f ./docker-compose-testing.yml up --abort-on-container-exit
 	make database-provision
+	docker ps | grep walmart
 
 tb test-backend:
 	docker exec walmart-tester-local bash -c 'cd /app/backend && npm run test'
