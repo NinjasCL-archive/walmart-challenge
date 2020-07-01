@@ -40,10 +40,10 @@ bt test-install:
 	docker ps
 
 tb test-backend:
-	docker exec walmart-tester-local sh -c 'cd /app/backend && npm run test'
+	docker exec walmart-tester-local sh -c 'cd /app/backend && pwd && npm run test'
 
 tf test-frontend:
-	docker exec walmart-tester-local sh -c 'cd /app/frontend && npm run test-no-watch'
+	docker exec walmart-tester-local sh -c 'cd /app/frontend && pwd && npm run test-no-watch'
 
 t test:
 	make test-frontend
