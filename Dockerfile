@@ -13,7 +13,7 @@ COPY ./backend ./
 
 COPY ./backend/init.sh .
 RUN chmod +x ./init.sh
-RUN pwd && ls -a
+RUN pwd && ls -a && cat ./init.sh
 RUN ./init.sh
 
 # Install Frontend

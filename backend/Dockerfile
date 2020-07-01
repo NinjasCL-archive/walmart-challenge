@@ -1,4 +1,4 @@
-FROM node:12.18
+FROM node:lts-alpine3.10
 
 WORKDIR /app
 
@@ -12,7 +12,7 @@ RUN ./init.sh
 
 COPY . .
 
-RUN pwd && ls -a && ls node_modules/
+RUN pwd && ls -a
 
 EXPOSE 3333
 
