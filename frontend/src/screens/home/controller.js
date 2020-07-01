@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import _ from "lodash";
 
 import View from "./view";
 import ProductsAPI from "../../http/products";
@@ -6,47 +7,59 @@ import ProductsAPI from "../../http/products";
 const HomeController = () => {
   const [products, setProducts] = useState(ProductsAPI.default.get);
   const [searchQuery, setSearchQuery] = useState("");
+  const [queryIsDirty, setQueryIsDirty] = useState(true);
   const [page, setPage] = useState(1);
   const [shouldFetch, setShouldFetch] = useState(true);
 
   const cachedProducts = useRef([]);
 
-  // TODO: fin a way to implement debounce
-  // the current implementation using solutions like react-debounce-input
-  // gives wrong search results due to the delay.
-  const updateSearchQuery = (event) => {
-    const query = event.target.value.trim();
+  // using debounce strategy by https://github.com/Mikjail/search-bar
+  const updateSearchQuery = ({ target: { value } }) => {
+    const milliseconds = 300;
 
-    // Reset the product list and current page
-    if (cachedProducts.current.length > 0) {
-      cachedProducts.current = [];
-    }
-
-    if (page !== 1) {
+    const searchDebounced = _.debounce(() => {
+      // Reset the product list and current page
       setPage(1);
-    }
+      if (cachedProducts.current.length > 0) {
+        cachedProducts.current = [];
+      }
 
+      setShouldFetch(true);
+    }, milliseconds);
+
+    const query = value.trim();
+
+    setPage(1);
     setSearchQuery(query);
-    setShouldFetch(true);
+    setQueryIsDirty(true);
+    searchDebounced(query);
   };
 
   const loadMoreProducts = () => {
     if (products.meta.has_next_page) {
       setPage(products.meta.next_page);
+      if (queryIsDirty) {
+        setPage(1);
+      }
       setShouldFetch(true);
     }
   };
 
   useEffect(() => {
-    cachedProducts.current = [...cachedProducts.current, ...products.items];
+    cachedProducts.current = [...cachedProducts.current, ...products.items].sort(
+      (a, b) => a.price < b.price
+    );
   }, [products]);
 
   useEffect(() => {
     const fetchProducts = () => {
       if (shouldFetch) {
         ProductsAPI.get({ query: searchQuery, page }).then((result) => {
-          setProducts(result);
-          setShouldFetch(false);
+          if (result && !result.cancelPrevQuery) {
+            setProducts(result);
+            setShouldFetch(false);
+            setQueryIsDirty(false);
+          }
         });
       }
     };

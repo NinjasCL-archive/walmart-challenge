@@ -17,9 +17,15 @@ dd database-down:
 	docker rm -f mongodb-local
 
 # Backend and Frontend
-b build:
+u up:
 	./check-container-names.sh
 	docker-compose up -d --build
+
+b build:
+	# https://github.com/docker/compose/issues/1049#issuecomment-561988120
+	# Ensure that we are building an image from scratch.
+	./check-container-names.sh
+	docker-compose build --force-rm --no-cache && docker-compose up --detach && docker-compose logs -f
 
 i install:
 	make build
@@ -40,6 +46,6 @@ cb console-backend:
 
 cf console-frontend:
 	docker exec walmart-frontend-local bash -c 'bash'
-	
+
 ct console-test:
 	docker exec walmart-tester-local bash -c 'bash'

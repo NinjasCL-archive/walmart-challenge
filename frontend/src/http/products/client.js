@@ -18,6 +18,7 @@ const client = {
   endpoints: { root, base },
   http,
   cache,
+  axios,
 };
 
 export default client;
