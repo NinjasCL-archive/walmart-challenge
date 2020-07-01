@@ -25,7 +25,7 @@ b build:
 	# https://github.com/docker/compose/issues/1049#issuecomment-561988120
 	# Ensure that we are building an image from scratch.
 	./check-container-names.sh
-	docker-compose build --force-rm --no-cache && docker-compose up --detach && docker-compose logs -f
+	docker-compose build --force-rm --no-cache && docker-compose up --detach
 
 i install:
 	make build
@@ -40,6 +40,10 @@ tf test-frontend:
 t test:
 	make test-backend
 	make test-frontend
+
+gh github:
+	make install
+	make test
 
 cb console-backend:
 	docker exec walmart-backend-local bash -c 'bash'
