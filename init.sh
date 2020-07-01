@@ -1,7 +1,6 @@
 #!/bin/bash
 
-echo <<EOF >> .env
-HOST=0.0.0.0
+ENVDEV="HOST=0.0.0.0
 PORT=3333
 NODE_ENV=development
 APP_NAME=Walmart Challenge
@@ -17,11 +16,13 @@ DB_AUTH_SOURCE=admin
 DB_DATABASE=promotions
 DB_DEBUG=true
 HASH_DRIVER=bcrypt
-EOF
+"
 
-echo <<EOF >> .env.testing
-HOST=0.0.0.0
-PORT=3333
+echo "$ENVDEV" > .env
+
+
+ENVTEST="HOST=0.0.0.0
+PORT=4000
 NODE_ENV=development
 APP_NAME=Walmart Challenge
 APP_URL=http://${HOST}:${PORT}
@@ -36,5 +37,6 @@ DB_AUTH_SOURCE=admin
 DB_DATABASE=promotions
 DB_DEBUG=true
 HASH_DRIVER=bcrypt
-EOF
+"
 
+echo "$ENVTEST" > .env.testing

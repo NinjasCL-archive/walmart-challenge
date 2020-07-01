@@ -5,9 +5,9 @@ VOLUME ["/usr/src/app/"]
 WORKDIR /usr/src/app/
 
 COPY package*.json ./
-COPY /init.sh /init.sh
-RUN chmod +x /init.sh
+COPY ./init.sh ./init.sh
+RUN chmod +x ./init.sh
 
-CMD ["/init.sh"]
+CMD ["./init.sh"]
 
 
