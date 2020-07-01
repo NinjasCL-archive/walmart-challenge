@@ -4,10 +4,9 @@ WORKDIR /app
 
 COPY ./package*.json ./
 
-RUN npm install
+RUN sh ./init.sh
 
 COPY . .
-RUN sh ./init.sh
 
 RUN pwd && ls -a
 
