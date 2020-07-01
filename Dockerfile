@@ -8,9 +8,9 @@ COPY ./backend/package*.json ./
 
 RUN npm install
 
-COPY ./backend ./
+COPY ./backend .
 
-# COPY ./init.sh ./init.sh
+COPY ./init.sh ./init.sh
 RUN chmod +x ./init.sh
 RUN ./init.sh
 RUN pwd && ls -a && ls node_modules/
@@ -23,7 +23,7 @@ COPY ./frontend/package*.json ./
 
 RUN npm install
 
-COPY ./frontend ./
+COPY ./frontend .
 
 RUN pwd && ls -a
 
