@@ -37,7 +37,7 @@ bt test-install:
 	docker-compose -f ./docker-compose-testing.yml build --force-rm --no-cache
 	docker-compose -f ./docker-compose-testing.yml up -d
 	make database-provision
-	docker ps | grep walmart
+	docker ps
 
 tb test-backend:
 	docker exec walmart-tester-local bash -c 'cd /app/backend && npm run test'
@@ -46,8 +46,8 @@ tf test-frontend:
 	docker exec walmart-tester-local bash -c 'cd /app/frontend && npm run test-no-watch'
 
 t test:
-	make test-backend
 	make test-frontend
+	make test-backend
 
 gh github:
 	make test-install

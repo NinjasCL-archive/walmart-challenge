@@ -26,16 +26,6 @@ module.exports = (cli, runner) => {
     */
     use("Adonis/Src/Server").listen(process.env.HOST, process.env.PORT);
 
-    // wait some seconds before begin
-    // to give time for database connection
-    const wait = async (milliseconds = 1000) =>
-      new Promise((resolve) => {
-        setTimeout(resolve, milliseconds);
-      });
-
-    console.log("Waiting for Database Connection");
-    const seconds = 5 * 1000;
-    await wait(seconds);
     /*
     |--------------------------------------------------------------------------
     | Run migrations
