@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 ENVDEV="HOST=0.0.0.0
 PORT=3333
 NODE_ENV=development
@@ -20,7 +19,6 @@ HASH_DRIVER=bcrypt
 "
 
 echo "$ENVDEV" > .env
-
 
 ENVTEST="HOST=0.0.0.0
 PORT=4000
