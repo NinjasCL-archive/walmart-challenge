@@ -10,6 +10,11 @@ RUN npm install
 
 COPY ./backend .
 
+COPY ./init.sh ./init.sh
+RUN chmod +x ./init.sh
+RUN ./init.sh
+RUN ls
+
 
 # Install Frontend
 WORKDIR /app/frontend
@@ -20,11 +25,7 @@ RUN npm install
 
 COPY ./frontend .
 
-WORKDIR /app
-
-COPY ./init.sh ./init.sh
-RUN chmod +x ./init.sh
-RUN ./init.sh
+RUN ls
 
 # We need to sleep this beast in order
 # to execute testing commands

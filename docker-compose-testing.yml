@@ -1,0 +1,34 @@
+# Docker compose file for testing in Github
+# and other CI tools
+
+version: "3"
+
+# This config is for development only. For production use
+# another more secure configuration.
+
+services:
+  mongo:
+    container_name: mongodb-local
+    image: mongo:3.6.8
+    volumes:
+      - ./mongodb/database:/database
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: productListUser
+      MONGO_INITDB_ROOT_PASSWORD: productListPassword
+    ports:
+      # machine port : docker port
+      - 27017:27017
+  tester:
+    build: .
+    volumes:
+      - ./frontend:/app/frontend
+      - ./backend:/app/backend
+      - .:/app
+    container_name: walmart-tester-local
+    image: walmart-tester-local
+    depends_on:
+      - mongo
+    restart: always
+    links:
+      - mongo:database
