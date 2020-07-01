@@ -4,7 +4,7 @@ FROM node:lts-alpine3.10
 # Install Backend
 WORKDIR /app/backend
 
-COPY ./package.json ./
+COPY ./backend/package*.json ./
 
 RUN npm install
 
