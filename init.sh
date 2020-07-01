@@ -1,7 +1,5 @@
 #!/bin/bash
 
-npm install
-
 echo <<EOF >> .env
 HOST=0.0.0.0
 PORT=3333
@@ -23,7 +21,7 @@ EOF
 
 echo <<EOF >> .env.testing
 HOST=0.0.0.0
-PORT=4000
+PORT=3333
 NODE_ENV=development
 APP_NAME=Walmart Challenge
 APP_URL=http://${HOST}:${PORT}
@@ -39,6 +37,4 @@ DB_DATABASE=promotions
 DB_DEBUG=true
 HASH_DRIVER=bcrypt
 EOF
-
-npm start
 

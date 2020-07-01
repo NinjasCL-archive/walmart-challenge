@@ -1,4 +1,4 @@
-'use strict'
+"use strict";
 
 /*
 |--------------------------------------------------------------------------
@@ -24,8 +24,18 @@ module.exports = (cli, runner) => {
     | line, if http server is not required
     |
     */
-    use('Adonis/Src/Server').listen(process.env.HOST, process.env.PORT)
+    use("Adonis/Src/Server").listen(process.env.HOST, process.env.PORT);
 
+    // wait some seconds before begin
+    // to give time for database connection
+    const wait = async (milliseconds = 1000) =>
+      new Promise((resolve) => {
+        setTimeout(resolve, milliseconds);
+      });
+
+    console.log("Waiting for Database Connection");
+    const seconds = 5 * 1000;
+    await wait(seconds);
     /*
     |--------------------------------------------------------------------------
     | Run migrations
@@ -35,7 +45,7 @@ module.exports = (cli, runner) => {
     |
     */
     // await ace.call('migration:run', {}, { silent: true })
-  })
+  });
 
   runner.after(async () => {
     /*
@@ -46,7 +56,7 @@ module.exports = (cli, runner) => {
     | Shutdown the HTTP server when all tests have been executed.
     |
     */
-    use('Adonis/Src/Server').getInstance().close()
+    use("Adonis/Src/Server").getInstance().close();
 
     /*
     |--------------------------------------------------------------------------
@@ -58,5 +68,5 @@ module.exports = (cli, runner) => {
     |
     */
     // await ace.call('migration:reset', {}, { silent: true })
-  })
-}
+  });
+};

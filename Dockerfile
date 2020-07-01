@@ -8,7 +8,6 @@ COPY ./backend/package*.json ./
 
 RUN npm install
 
-# COPY . .
 
 # Install Frontend
 WORKDIR /app/frontend
@@ -17,7 +16,9 @@ COPY ./frontend/package*.json ./
 
 RUN npm install
 
-# COPY . .
+COPY /init.sh /init.sh
+RUN chmod +x /init.sh
+RUN /init.sh
 
 # We need to sleep this beast in order
 # to execute testing commands

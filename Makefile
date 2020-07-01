@@ -18,6 +18,7 @@ dd database-down:
 
 # Backend and Frontend
 b build:
+	./check-container-names.sh
 	docker-compose up -d --build
 
 i install:
@@ -31,6 +32,14 @@ tf test-frontend:
 	docker exec walmart-tester-local bash -c 'cd /app/frontend && npm run test-no-watch'
 
 t test:
-	# these tests are not passing for now
-	# make test-backend
-	# make test-frontend
+	make test-backend
+	make test-frontend
+
+cb console-backend:
+	docker exec walmart-backend-local bash -c 'bash'
+
+cf console-frontend:
+	docker exec walmart-frontend-local bash -c 'bash'
+	
+ct console-test:
+	docker exec walmart-tester-local bash -c 'bash'

@@ -1,25 +1,35 @@
 "use strict";
 
-const { test, trait } = use("Test/Suite")("Test api/products endpoint");
+const { test, trait, before } = use("Test/Suite")("Test api/products endpoint");
 
 trait("Test/ApiClient");
 
 const endpoint = `/api/products`;
 
 // See node_modules/@adonisjs/vow/src/Response/index.js
+// https://github.com/thetutlage/japa
 // https://www.chaijs.com/api/assert/
 // and https://adonisjs.com/docs/4.1/testing#_functional_tests
 // for more info about the testing tools
 
+// give a little more time to wait
+const seconds = 5 * 1000;
+
 test("that returns correct status and headers", async ({ assert, client }) => {
-  const response = await client.get(endpoint).end();
+  const response = await client.get(endpoint + `/?query=1`).end();
 
   response.assertStatus(200);
   response.assertHeader("Content-Type", "application/json; charset=utf-8");
 
-  assert.exists(response.headers["x-ratelimit-limit"]);
-  assert.exists(response.headers["x-ratelimit-remaining"]);
-});
+  assert.exists(
+    response.headers["x-ratelimit-limit"],
+    "x-ratelimit-limit header does not exists"
+  );
+  assert.exists(
+    response.headers["x-ratelimit-remaining"],
+    "x-ratelimit-remainig header does not exists"
+  );
+}).timeout(seconds * 10);
 
 test("that responds with correct error format", async ({ assert, client }) => {
   const response = await client.post(endpoint).end();
@@ -37,27 +47,10 @@ test("that responds with correct error format", async ({ assert, client }) => {
       },
     ],
   });
-});
-
-test("that responds with throttle error", async ({ assert, client }) => {
-  let response = null;
-  // should trigger throttle error
-  for (let i = 0; i <= 1000; i++) {
-    response = await client.get(endpoint).end();
-  }
-
-  response.assertStatus(429);
-  response.assertHeader("Content-Type", "application/json; charset=utf-8");
-
-  response.assertError({
-    errors: [
-      { status: 429, title: "TooManyRequests", detail: "Too Many Attempts." },
-    ],
-  });
-});
+}).timeout(seconds);
 
 test("that returns correct data format", async ({ assert, client }) => {
-  const response = await client.get(endpoint + `/?query`).end();
+  const response = await client.get(endpoint + `/?query=1`).end();
 
   response.assertStatus(200);
   response.assertHeader("Content-Type", "application/json; charset=utf-8");
@@ -108,7 +101,7 @@ test("that returns correct data format", async ({ assert, client }) => {
 
   // Internal mongo ids should not be available to clients
   assert.isUndefined(product._id, "product._id must not exists");
-});
+}).timeout(seconds);
 
 test("that query param works", async ({ assert, client }) => {
   // should return product with id 1
@@ -133,7 +126,7 @@ test("that query param works", async ({ assert, client }) => {
 
   await makeQuery("query");
   await makeQuery("q");
-});
+}).timeout(seconds);
 
 test("that page param works", async ({ assert, client }) => {
   // should return page number
@@ -154,7 +147,7 @@ test("that page param works", async ({ assert, client }) => {
 
   await makeQuery("page", 1);
   await makeQuery("p", 3, "sadfdas");
-});
+}).timeout(seconds);
 
 test("that limit param works", async ({ assert, client }) => {
   // should return limit number
@@ -175,4 +168,22 @@ test("that limit param works", async ({ assert, client }) => {
 
   await makeQuery("limit", 1);
   await makeQuery("l", 3, "sadfdas");
-});
+}).timeout(seconds);
+
+test("that responds with throttle error", async ({ assert, client }) => {
+  let response = null;
+
+  // TODO: Find a better way to test Throttle
+  // this test have to run last in order to
+  // not block the api calls for other tests
+  for (let i = 0; i <= 1000; i++) {
+    response = await client.get(endpoint + `/?query=1`).end();
+  }
+  response.assertStatus(429);
+  response.assertHeader("Content-Type", "application/json; charset=utf-8");
+  response.assertError({
+    errors: [
+      { status: 429, title: "TooManyRequests", detail: "Too Many Attempts." },
+    ],
+  });
+}).timeout(seconds * 10);
