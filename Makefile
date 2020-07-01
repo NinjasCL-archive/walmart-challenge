@@ -35,7 +35,7 @@ i install:
 
 bt test-install:
 	docker-compose -f ./docker-compose-testing.yml build --force-rm --no-cache
-	docker-compose -f ./docker-compose-testing.yml up --abort-on-container-exit
+	docker-compose -f ./docker-compose-testing.yml up -d
 	make database-provision
 	docker ps | grep walmart
 
