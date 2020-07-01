@@ -1,6 +1,5 @@
 #!/bin/bash
 
-npm install
 
 ENVDEV="HOST=0.0.0.0
 PORT=3333
@@ -42,7 +41,4 @@ HASH_DRIVER=bcrypt
 "
 
 echo "$ENVTEST" > .env.testing
-
-
-npm start
 

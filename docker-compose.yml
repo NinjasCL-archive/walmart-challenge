@@ -19,7 +19,7 @@ services:
       - 27017:27017
   backend:
     container_name: walmart-backend-local
-    build: 
+    build:
       context: ./backend
       dockerfile: ./Dockerfile
     restart: always
@@ -28,7 +28,7 @@ services:
     depends_on:
       - mongo
     volumes:
-      - ./backend:/usr/src/app/
+      - ./backend:/app
     ports:
       # machine port : docker port
       - 3333:3333

@@ -8,6 +8,8 @@ COPY ./backend/package*.json ./
 
 RUN npm install
 
+COPY ./backend .
+
 
 # Install Frontend
 WORKDIR /app/frontend
@@ -15,6 +17,8 @@ WORKDIR /app/frontend
 COPY ./frontend/package*.json ./
 
 RUN npm install
+
+COPY ./frontend .
 
 WORKDIR /app
 

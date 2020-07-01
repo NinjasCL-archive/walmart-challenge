@@ -1,13 +1,17 @@
 FROM node:12.18
 
-# Volume
-VOLUME ["/usr/src/app/"]
-WORKDIR /usr/src/app/
+WORKDIR /app
 
 COPY package*.json ./
-COPY ./init.sh ./init.sh
+
+RUN npm install
+
+COPY . .
+
 RUN chmod +x ./init.sh
 
-CMD ["./init.sh"]
+RUN ./init.sh
+
+CMD ["npm", "start"]
 
 
