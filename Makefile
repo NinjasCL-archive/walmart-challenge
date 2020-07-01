@@ -32,7 +32,7 @@ i install:
 	make database-provision
 
 bt test-install:
-	docker-compose -f ./docker-compose-testing.yml up -d --build
+	docker-compose -f ./docker-compose-testing.yml rm -f && docker-compose -f ./docker-compose-testing.yml build && docker-compose -f ./docker-compose-testing.yml up --abort-on-container-exit
 	make database-provision
 
 tb test-backend:
