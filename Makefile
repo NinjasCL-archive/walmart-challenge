@@ -21,7 +21,7 @@ b build:
 	docker-compose up -d --build
 
 i install:
-	make dev
+	make build
 	make database-provision
 
 tb test-backend:
