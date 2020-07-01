@@ -11,7 +11,7 @@ RUN npm install
 
 COPY ./backend ./
 RUN sh ./init.sh
-RUN pwd && ls -a
+RUN pwd && ls -a -R | grep @adonis
 
 # Install Frontend
 WORKDIR /app/frontend
@@ -22,7 +22,7 @@ RUN npm install
 
 COPY ./frontend ./
 
-RUN pwd && ls -a
+RUN pwd && ls -a -R grep react-scripts
 
 # We need to sleep this beast in order
 # to execute testing commands
