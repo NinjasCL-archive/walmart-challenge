@@ -6,8 +6,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node server.js",
-    "test": "node ace test",
-    "env": "chmod +x ./init.sh && ./init.sh"
+    "test": "node ace test"
   },
   "keywords": [
     "adonisjs",

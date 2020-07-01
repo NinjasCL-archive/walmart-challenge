@@ -7,8 +7,13 @@ WORKDIR /app/backend
 COPY ./backend/package*.json ./
 
 RUN npm install
+
+
 COPY ./backend ./
-RUN npm env
+
+COPY ./backend/init.sh ./init.sh
+RUN chmod +x ./init.sh
+RUN ./init.sh
 RUN pwd && ls -a
 
 # Install Frontend
