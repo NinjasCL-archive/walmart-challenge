@@ -10,11 +10,8 @@ RUN npm install
 
 
 COPY ./backend ./
-
-#COPY ./backend/init.sh .
-RUN chmod +x ./init.sh
-RUN pwd && ls -a && cat ./init.sh
 RUN sh ./init.sh
+RUN pwd && ls -a
 
 # Install Frontend
 WORKDIR /app/frontend

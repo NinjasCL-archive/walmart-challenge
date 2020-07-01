@@ -6,11 +6,8 @@ COPY package*.json .
 
 RUN npm install
 
-COPY ./init.sh ./init.sh
-RUN chmod +x ./init.sh
-RUN ./init.sh
-
 COPY . .
+RUN sh ./init.sh
 
 RUN pwd && ls -a
 
