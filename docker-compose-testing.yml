@@ -22,7 +22,7 @@ services:
   tester:
     build: .
     volumes:
-      - .:/
+      - .:.
     container_name: walmart-tester-local
     image: walmart-tester-local
     depends_on:
