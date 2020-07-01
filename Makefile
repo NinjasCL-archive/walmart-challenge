@@ -46,7 +46,7 @@ t test:
 	make test-frontend
 
 gh github:
-	make install
+	make test-install
 	make test
 
 cb console-backend:
