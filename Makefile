@@ -40,10 +40,10 @@ bt test-install:
 	docker ps
 
 tb test-backend:
-	docker exec walmart-tester-local bash -c 'cd /app/backend && npm run test'
+	docker exec walmart-tester-local sh -c 'cd /app/backend && npm run test'
 
 tf test-frontend:
-	docker exec walmart-tester-local bash -c 'cd /app/frontend && npm run test-no-watch'
+	docker exec walmart-tester-local sh -c 'cd /app/frontend && npm run test-no-watch'
 
 t test:
 	make test-frontend
@@ -54,10 +54,10 @@ gh github:
 	make test
 
 cb console-backend:
-	docker exec walmart-backend-local bash -c 'bash'
+	docker exec walmart-backend-local sh -c '/bin/sh'
 
 cf console-frontend:
-	docker exec walmart-frontend-local bash -c 'bash'
+	docker exec walmart-frontend-local sh -c '/bin/sh'
 
 ct console-test:
-	docker exec walmart-tester-local bash -c 'bash'
+	docker exec walmart-tester-local sh -c '/bin/sh'
