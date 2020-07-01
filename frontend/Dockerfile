@@ -1,5 +1,6 @@
-# Based on Diego Sepúlveda's Implementation
+# Dockerfile Based on Diego Sepúlveda's Implementation
 # https://github.com/DiegoSepuSoto
+# Thanks Diego!.
 FROM node:lts-alpine3.10 AS builder
 
 WORKDIR /app

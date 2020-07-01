@@ -39,6 +39,7 @@ This project was made using the following technologies:
 - _Frontend_: https://reactjs.org/[React.js].
 - _API Docs_: https://swagger.io/[Swagger].
 - _REST API Spec_: https://jsonapi.org/[JSON API].
+- _CSS_: https://bulmatemplates.github.io/bulma-templates/[Bulma.css]
 
 ## Installation
 
